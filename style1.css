@@ -1,0 +1,490 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap');
+
+/* ══════════════════════════════════════════
+   VARIABLES
+══════════════════════════════════════════ */
+:root {
+    --sidebar-w:      260px;
+    --ink:            #0b0e14;
+    --ink-soft:       #374151;
+    --ink-muted:      #9ca3af;
+    --surface:        #f7f7f5;
+    --white:          #ffffff;
+    --accent:         #1a56db;
+    --accent-soft:    rgba(26, 86, 219, 0.12);
+    --accent-glow:    rgba(26, 86, 219, 0.3);
+    --sidebar-bg:     #0b0e14;
+    --sidebar-line:   rgba(255,255,255,0.07);
+    --card-radius:    16px;
+    --card-shadow:    0 2px 16px rgba(0,0,0,0.06);
+    --card-shadow-hv: 0 8px 32px rgba(0,0,0,0.10);
+    --ease:           cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ══════════════════════════════════════════
+   BASE
+══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+}
+
+/* ══════════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════════ */
+.sidebar-vertical {
+    background: var(--sidebar-bg);
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    z-index: 1030;
+    overflow-y: auto;
+    border-right: 1px solid var(--sidebar-line);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+}
+
+/* Header sidebar */
+.sidebar-vertical .p-4 {
+    padding: 2rem 1.5rem 1.5rem !important;
+    border-bottom: 1px solid var(--sidebar-line);
+}
+
+.sidebar-vertical h2 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin: 0;
+}
+
+.sidebar-vertical hr {
+    display: none;
+}
+
+/* Nav */
+.sidebar-vertical .nav {
+    padding: 1.25rem 1rem;
+    gap: 2px;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.38) !important;
+    padding: 9px 14px !important;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    transition: all 0.22s var(--ease);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    transform: translateY(-50%);
+    width: 2px; height: 0;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: height 0.22s var(--ease);
+}
+
+.nav-link:hover {
+    color: rgba(255,255,255,0.85) !important;
+    background: rgba(255,255,255,0.06);
+    letter-spacing: 0.12em;
+    transform: none;
+}
+
+.nav-link:hover::after { height: 55%; }
+
+.nav-link.active {
+    color: var(--white) !important;
+    background: var(--accent) !important;
+    box-shadow: 0 4px 16px var(--accent-glow);
+}
+
+.nav-link.active::after { display: none; }
+
+/* Scrollbar sidebar */
+.sidebar-vertical::-webkit-scrollbar { width: 3px; }
+.sidebar-vertical::-webkit-scrollbar-track { background: transparent; }
+.sidebar-vertical::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+}
+
+/* ══════════════════════════════════════════
+   MAIN CONTENT
+══════════════════════════════════════════ */
+@media (min-width: 768px) {
+    .main-content {
+        margin-left: var(--sidebar-w);
+        width: calc(100% - var(--sidebar-w));
+        min-height: 100vh;
+    }
+}
+
+@media (max-width: 767px) {
+    .sidebar-vertical {
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+    .main-content { margin-left: 0; width: 100%; }
+    section { padding: 48px 20px !important; }
+}
+
+/* ══════════════════════════════════════════
+   SECTION ACCUEIL
+══════════════════════════════════════════ */
+#accueil {
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+/* Grille de points décorative */
+#accueil::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
+    pointer-events: none;
+}
+
+/* Halo bleu */
+#accueil::after {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(26,86,219,0.18) 0%, transparent 65%);
+    top: -150px; right: -150px;
+    pointer-events: none;
+}
+
+#accueil .text-center {
+    position: relative;
+    z-index: 1;
+}
+
+/* Tag "BTS SIO" */
+#accueil .lead {
+    display: inline-block;
+    background: rgba(26,86,219,0.18);
+    border: 1px solid rgba(26,86,219,0.35);
+    color: #93b4f5 !important;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+}
+
+/* Nom principal */
+#accueil h1.display-2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--white);
+    background: none;
+    -webkit-text-fill-color: var(--white);
+    animation: none;
+    margin-bottom: 0.25rem;
+}
+
+/* "Bienvenue" en sous-titre élégant */
+#accueil h1.display-2:last-child {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35) !important;
+    -webkit-text-fill-color: rgba(255,255,255,0.35);
+    background: none;
+    margin-top: 1.25rem;
+}
+
+/* ══════════════════════════════════════════
+   SECTIONS COMMUNES
+══════════════════════════════════════════ */
+section:not(#accueil) {
+    padding: 72px 52px;
+    background: var(--surface);
+}
+
+section:nth-child(even):not(#accueil) {
+    background: var(--white);
+}
+
+#veille.bg-light {
+    background: #f0f2f7 !important;
+}
+
+/* Titres de section */
+.display-4.fw-bold,
+.display-5.fw-bold {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400 !important;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+}
+
+/* ══════════════════════════════════════════
+   CARDS
+══════════════════════════════════════════ */
+.card-custom {
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,0.07) !important;
+    border-radius: var(--card-radius);
+    padding: 32px;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+
+.card-custom:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hv);
+}
+
+/* Cards Bootstrap dans timeline / stages */
+.card {
+    border-radius: var(--card-radius) !important;
+    transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--card-shadow-hv) !important;
+}
+
+/* ══════════════════════════════════════════
+   SECTION PROFIL
+══════════════════════════════════════════ */
+.profile-frame {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-frame::before {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, var(--accent) 0%, #60a5fa 100%);
+    z-index: 0;
+    opacity: 0.25;
+    filter: blur(16px);
+}
+
+.profile-frame img {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.35s var(--ease);
+}
+
+.profile-frame img:hover {
+    transform: scale(1.02);
+}
+
+/* Info boxes dans profil */
+.border-start.border-primary.border-4 {
+    border-left-color: var(--accent) !important;
+    background: #f8faff !important;
+    border-radius: 0 10px 10px 0;
+}
+
+/* Badges compétences */
+.badge.rounded-pill.bg-primary-subtle {
+    background: var(--accent-soft) !important;
+    color: var(--accent) !important;
+    border-color: rgba(26,86,219,0.2) !important;
+    font-weight: 500;
+    font-size: 0.78rem;
+    padding: 6px 14px;
+}
+
+/* ══════════════════════════════════════════
+   BOUTON CV
+══════════════════════════════════════════ */
+.btn-cv-custom {
+    background: var(--accent) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    transition: all 0.25s var(--ease) !important;
+}
+
+.btn-cv-custom:hover {
+    background: #1648c0 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 24px var(--accent-glow) !important;
+}
+
+/* ══════════════════════════════════════════
+   SECTION PRÉSENTATION
+══════════════════════════════════════════ */
+#presentation .card-custom {
+    background: var(--ink);
+    color: rgba(255,255,255,0.75);
+    border: none !important;
+}
+
+#presentation .card-custom p { color: rgba(255,255,255,0.72); }
+
+/* Cards SISR / SLAM */
+#presentation .border-start.border-primary.border-5 {
+    border-left-color: var(--accent) !important;
+}
+
+#presentation .border-start.border-info.border-5 {
+    border-left-color: #0ea5e9 !important;
+}
+
+/* ══════════════════════════════════════════
+   SECTION STAGES
+══════════════════════════════════════════ */
+#stages .card-custom {
+    border: 1px solid rgba(0,0,0,0.07) !important;
+}
+
+.badge.bg-primary {
+    background: var(--accent) !important;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+/* ══════════════════════════════════════════
+   SECTION PROJETS — CAROUSEL
+══════════════════════════════════════════ */
+#projets .card-custom.border-0.shadow-lg {
+    border: 1px solid rgba(0,0,0,0.07) !important;
+    overflow: hidden;
+}
+
+/* ══════════════════════════════════════════
+   TIMELINE VEILLE
+══════════════════════════════════════════ */
+.timeline {
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: calc(16.666% - 0.5px);
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgba(26,86,219,0.2) 8%,
+        rgba(26,86,219,0.2) 92%,
+        transparent 100%);
+    pointer-events: none;
+}
+
+.timeline .card {
+    border: 1px solid rgba(0,0,0,0.07) !important;
+    overflow: hidden;
+}
+
+/* Colonne de date dans la timeline */
+.timeline .col-md-2 {
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* ══════════════════════════════════════════
+   SECTION CONTACT
+══════════════════════════════════════════ */
+#contact {
+    background: var(--ink) !important;
+}
+
+#contact h2 {
+    color: var(--white) !important;
+}
+
+#contact .card {
+    background: rgba(255,255,255,0.04) !important;
+    border: 1px solid var(--sidebar-line) !important;
+    border-top: 3px solid var(--accent) !important;
+    border-radius: var(--card-radius) !important;
+}
+
+#contact .bg-light {
+    background: rgba(255,255,255,0.06) !important;
+    border-radius: 10px;
+}
+
+#contact a {
+    color: rgba(255,255,255,0.82) !important;
+    transition: color 0.2s;
+}
+
+#contact a:hover {
+    color: var(--white) !important;
+}
+
+#contact .text-primary { color: #60a5fa !important; }
+#contact .text-success { color: #4ade80 !important; }
+
+/* ══════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════ */
+.section-fade {
+    animation: reveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes reveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════
+   UTILITAIRES
+══════════════════════════════════════════ */
+.leading-relaxed { line-height: 1.8; }
+
+.text-primary { color: var(--accent) !important; }
+.border-primary { border-color: var(--accent) !important; }
+.bg-primary { background-color: var(--accent) !important; }
+
+/* Outline buttons */
+.btn-outline-primary {
+    color: var(--accent) !important;
+    border-color: var(--accent) !important;
+}
+.btn-outline-primary:hover {
+    background: var(--accent) !important;
+    color: var(--white) !important;
+}
